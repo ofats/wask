@@ -1,5 +1,5 @@
 #include <algorithm>
-#include <iostream>
+#include <string>
 
 #include <netdb.h>
 #include <netinet/in.h>
@@ -12,7 +12,7 @@ constexpr char usage_message[] = "Usage: ./wask [-o OUTPUT_PATH] URL";
 constexpr std::size_t buffer_size = 1024;
 
 void show_usage_and_exit() {
-    std::cerr << usage_message << std::endl;
+    std::fprintf(stderr, "%s\n", usage_message);
     std::exit(1);
 }
 
@@ -71,8 +71,7 @@ int main(int argc, const char* argv[]) {
             show_usage_and_exit();
         }
         if (nullptr == std::freopen(argv[2], "w", stdout)) {
-            std::cerr << "Can't open " << argv[2] << " for writing"
-                      << std::endl;
+            std::fprintf(stderr, "Can't open %s for writing\n", argv[2]);
             std::exit(1);
         }
     }
